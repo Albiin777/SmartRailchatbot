@@ -6,8 +6,8 @@ COPY . .
 
 RUN pip install -r requirements.txt
 
-RUN rasa train
+RUN chmod +x start.sh
 
 EXPOSE 5005
 
-CMD rasa run --enable-api --cors "*" --port $PORT
+CMD ./start.sh
