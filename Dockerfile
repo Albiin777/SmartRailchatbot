@@ -1,13 +1,12 @@
-FROM python:3.10
+FROM rasa/rasa:3.6.0
 
 WORKDIR /app
 
-COPY . .
+COPY . /app
 
+USER root
 RUN pip install -r requirements.txt
 
-RUN chmod +x start.sh
+USER 1001
 
-EXPOSE 5005
-
-CMD ./start.sh
+CMD rasa run actions --port 5055 & rasa run --enable-api --cors "*" --port ${PORT:-5005} --endpoints endpoints.yml --workers 1
