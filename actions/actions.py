@@ -4,13 +4,19 @@ import requests
 import re
 import difflib
 import datetime
+from dotenv import load_dotenv
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from typing import Any, Text, Dict, List
 
 
-API_BASE = "https://smartrail.up.railway.app/api"
+load_dotenv()
+
+
+API_BASE = os.getenv("SMART_RAIL_API_BASE_URL")
+if not API_BASE:
+    raise ValueError("SMART_RAIL_API_BASE_URL is not set")
 
 
 # -----------------------------

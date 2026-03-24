@@ -1,16 +1,52 @@
-# React + Vite
+# SmartRail Rasa Chatbot
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project contains:
 
-Currently, two official plugins are available:
+- Rasa bot configuration and training data
+- Custom actions in Python
+- React + Vite chatbot UI
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Environment Variables
 
-## React Compiler
+Create a local env file from the template:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+cp .env.example .env
+```
 
-## Expanding the ESLint configuration
+Variables used by this project:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- `RASA_ACTION_ENDPOINT_URL`: Action server webhook for Rasa (`endpoints.yml`)
+- `SMART_RAIL_API_BASE_URL`: Train API base URL used in `actions/actions.py`
+- `VITE_RASA_REST_WEBHOOK_URL`: REST webhook consumed by `src/App.jsx`
+- `RASA_ENTERPRISE_API_URL`: Optional Rasa Enterprise URL in `credentials.yml`
+
+For hosting (Railway, Render, etc.), set the same variables in your platform's environment settings.
+
+## Install
+
+```bash
+pip install -r requirements.txt
+npm install
+```
+
+## Run Locally
+
+Terminal 1 (Rasa server):
+
+```bash
+rasa train
+rasa run --enable-api --cors "*" --port 5005
+```
+
+Terminal 2 (Action server):
+
+```bash
+rasa run actions --port 5055
+```
+
+Terminal 3 (Frontend):
+
+```bash
+npm run dev
+```

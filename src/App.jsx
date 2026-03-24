@@ -1,6 +1,10 @@
 
 import { useState, useRef, useEffect } from "react";
 
+const RASA_REST_WEBHOOK_URL =
+  import.meta.env.VITE_RASA_REST_WEBHOOK_URL ||
+  "http://localhost:5005/webhooks/rest/webhook";
+
 function App() {
 
   const [message, setMessage] = useState("");
@@ -21,7 +25,7 @@ function App() {
     try {
 
       const response = await fetch(
-        "http://smartrail.up.railway.app/webhooks/rest/webhook",
+        RASA_REST_WEBHOOK_URL,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -65,7 +69,7 @@ function App() {
     try {
 
       const response = await fetch(
-        "http://smartrail.up.railway.app/webhooks/rest/webhook",
+        RASA_REST_WEBHOOK_URL,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
