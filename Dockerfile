@@ -9,4 +9,4 @@ RUN pip install -r requirements.txt
 
 USER 1001
 
-CMD rasa run actions --port 5055 & rasa run --enable-api --cors "*" --port ${PORT:-5005} --endpoints endpoints.yml --workers 1
+CMD sh -c "rasa run actions --port ${ACTION_PORT:-5055} & rasa run --enable-api --cors '*' --port ${PORT:-5005} --endpoints endpoints.yml --workers 1"
