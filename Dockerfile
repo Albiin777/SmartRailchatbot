@@ -1,14 +1,23 @@
-FROM rasa/rasa:3.6.0
+FROM python:3.10.11-slim
 
 WORKDIR /app
 
+# Install system dependencies required by Rasa components
+RUN apt-get update && apt-get install -y build-essential && rm -rf /var/lib/apt/lists/*
+
+# Copy local files
 COPY . /app
 
-USER root
-RUN pip install -r requirements.txt
+# Upgrade pip and install the requirements
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Remove old models and retrain the bot
 RUN rm -rf models/*
 RUN rasa train
 
-USER 1001
+# Expose necessary ports
+EXPOSE 5005 5055
 
+# Run the action server in the background and start the rasa API
 CMD sh -c "rasa run actions --port ${ACTION_PORT:-5055} & rasa run --enable-api --cors '*' --port ${PORT:-5005} --endpoints endpoints.yml --workers 1"
