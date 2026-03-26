@@ -6,6 +6,8 @@ COPY . /app
 
 USER root
 RUN pip install -r requirements.txt
+RUN rm -rf models/*
+RUN rasa train
 
 USER 1001
 
