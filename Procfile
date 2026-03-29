@@ -1,1 +1,1 @@
-web: sh start.sh
+web: sed -i 's/\r$//' start.sh && sh start.sh
