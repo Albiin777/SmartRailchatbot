@@ -1,5 +1,8 @@
+[phases.setup]
+nixPkgs = ["python310"]
+
 [phases.build]
 cmds = ["pip install -r requirements.txt"]
 
 [phases.start]
-cmd = "sh -c \"rasa train && rasa run --enable-api --port ${PORT:-5005} --cors '*'\""
+cmd = "sh start.sh"
