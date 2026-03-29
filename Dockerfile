@@ -20,4 +20,4 @@ RUN rasa train
 EXPOSE 5005 5055
 
 # Run the action server in the background and start the rasa API
-CMD sh -c "rasa run actions --port ${ACTION_PORT:-5055} & rasa run --enable-api --cors '*' --port ${PORT:-5005} --endpoints endpoints.yml --workers 1"
+CMD sh -c "rasa run actions --port 5055 & rasa run --enable-api --cors \"*\" --port ${PORT:-5005} --endpoints endpoints.yml"
