@@ -1,1 +1,1 @@
-web: sed -i 's/\r$//' start.sh && sh start.sh
+web: sh -c "rasa run actions --port 5055 & rasa run --enable-api --cors '*' --port ${PORT:-5005} --endpoints endpoints.yml"
